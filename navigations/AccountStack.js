@@ -5,7 +5,6 @@ import Account from '../screens/account/Account'
 import Login from '../screens/account/Login'
 import Register from '../screens/account/Register'
 
-
 const Stack = createStackNavigator()
 
 export default function AccountStack() {
