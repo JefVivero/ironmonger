@@ -7,6 +7,7 @@ import Loading from '../../components/Loading'
 import InfoUser from '../../components/account/InfoUser'
 import Toast  from 'react-native-easy-toast'
 
+
 export default function UserLogged() {
     const toastRef = useRef()
     const navigation = useNavigation()
@@ -28,11 +29,12 @@ export default function UserLogged() {
                             user={user} 
                             setloading={setloading} 
                             setloadingText={setloadingText}
+                            toastRef ={toastRef}
                         />
-                        <Text>AccountOptions</Text>
                     </View>
                 )
             }
+            
             <Button
                 buttonStyle= {styles.btnCloseSession}
                 titleStyle= {styles.btnCloseTitle}
@@ -56,15 +58,14 @@ const styles = StyleSheet.create({
     btnCloseSession:{
         marginTop:30,
         borderRadius: 5,
-        backgroundColor: "#ffffff",
-        borderTopWidth: 1,
-        borderTopColor: "#ad2c33",
+        backgroundColor: "#ad2c33",
         borderBottomWidth: 1,
         borderBottomColor: "#ad2c33",
-        paddingVertical: 10
+        paddingVertical: 10,
+        paddingHorizontal: 4
     },
     btnCloseTitle:{
-        color: "#ad2c33"
+        color: "#ffff"
     },
     toaste:{
         backgroundColor:'red'
