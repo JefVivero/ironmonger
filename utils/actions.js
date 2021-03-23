@@ -106,3 +106,16 @@ export const updateEmail = async(email) =>{
 
     return result
 }
+
+export const updatePassword= async(password) =>{
+    const result = { status: true, error: null }
+
+    try {
+        await firebase.auth().currentUser.updatePassword(password)
+    } catch (error) {
+        result.status= false;
+        result.error= error
+    }
+
+    return result
+}

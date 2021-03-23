@@ -7,6 +7,7 @@ import Toast  from 'react-native-easy-toast'
 import Modal from '../Modal'
 import ChangeDisplayNameForm from './ChangeDisplayNameForm'
 import ChangeEmailForm from './ChangeEmailForm'
+import ChangePasswordForm from './ChangePasswordForm'
 
 export default function AccountOptions({ route }) {
     const toastRef = useRef()
@@ -47,7 +48,7 @@ export default function AccountOptions({ route }) {
                 iconColorLeft: "#ad2c33",
                 iconNameRight: "chevron-right",
                 iconColorRight: "#ad2c33",
-                onPress: ()=> seletedComponent("celular")
+                onPress: ()=> seletedComponent("cellphone")
             },
             {
                 title : "Cambiar Email",
@@ -92,9 +93,28 @@ export default function AccountOptions({ route }) {
                 break;
             case "password":
                 setRenderComponent(
-                    <Text>password</Text>
+                    <ChangePasswordForm
+                        setShowModal={setShowModal}
+                        toastRef= {toastRef}
+                    /> 
                 )
                 break;   
+            case "Addres":
+                setRenderComponent(
+                    <Text>Addres</Text>
+                 )
+                 break;   
+            case "phone":
+                 setRenderComponent(
+                    <Text>phone</Text>
+                    //phoneNumber
+                )
+                 break;   
+            case "cellphone":
+                setRenderComponent(
+                    <Text>cellphone</Text>
+                )
+                 break;                          
         }
     
        setShowModal(true)
