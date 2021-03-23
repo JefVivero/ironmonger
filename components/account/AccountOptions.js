@@ -1,29 +1,20 @@
 import { map } from 'lodash'
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { ListItem, Icon } from 'react-native-elements'
 import Toast  from 'react-native-easy-toast'
-import { useNavigation } from '@react-navigation/native'
 
-import { getCurrentUser } from '../../utils/actions'
 import Modal from '../Modal'
 import ChangeDisplayNameForm from './ChangeDisplayNameForm'
+import ChangeEmailForm from './ChangeEmailForm'
 
 export default function AccountOptions({ route }) {
     const toastRef = useRef()
-    //const navigation = useNavigation()
 
     const {userInfo, setReloadUser} = route.params
     
-    const [user, setUser] = useState(userInfo.displayName)
     const [showModal, setShowModal] = useState(false)   
     const [renderComponent, setRenderComponent] = useState(null) 
-    //const [reloadUser, setReloadUser] = useState(false)
-
-  /*  useEffect(() => {
-        setUser(getCurrentUser())
-        setReloadUser(false)
-    }, [reloadUser])*/
 
     const generateOptions= ()=>{
         return [
@@ -36,15 +27,15 @@ export default function AccountOptions({ route }) {
                 onPress: ()=> seletedComponent("displayName")
             },{
                 title : "Cambiar Dirección",
-                iconNameLeft: "at",
+                iconNameLeft: "home-circle",
                 iconColorLeft: "#ad2c33",
                 iconNameRight: "chevron-right",
                 iconColorRight: "#ad2c33",
-                onPress: ()=> seletedComponent("displayAddres")
+                onPress: ()=> seletedComponent("Addres")
             },
             {
                 title : "Cambiar Teléfono",
-                iconNameLeft: "at",
+                iconNameLeft: "phone",
                 iconColorLeft: "#ad2c33",
                 iconNameRight: "chevron-right",
                 iconColorRight: "#ad2c33",
@@ -52,7 +43,7 @@ export default function AccountOptions({ route }) {
             },
             {
                 title : "Cambiar Celular",
-                iconNameLeft: "at",
+                iconNameLeft: "cellphone",
                 iconColorLeft: "#ad2c33",
                 iconNameRight: "chevron-right",
                 iconColorRight: "#ad2c33",
@@ -91,7 +82,12 @@ export default function AccountOptions({ route }) {
                 break;
             case "email":
                 setRenderComponent(
-                    <Text>email</Text>
+                    <ChangeEmailForm
+                        email= {userInfo.email}
+                        setShowModal={setShowModal}
+                        toastRef= {toastRef}
+                        setReloadUser={setReloadUser}
+                    />
                 )
                 break;
             case "password":

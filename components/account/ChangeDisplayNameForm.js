@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash'
 import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { Input, Button } from 'react-native-elements'
 import { useNavigation } from '@react-navigation/native'
 
@@ -11,7 +11,6 @@ export default function ChangeDisplayNameForm({displayName, setShowModal, toastR
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const navigation = useNavigation()
-    const [ControlInterval, setControlInterval] = useState(null)
 
     const onSubmit = async() =>{
         if(!ValidateForm()){
@@ -30,11 +29,10 @@ export default function ChangeDisplayNameForm({displayName, setShowModal, toastR
         setReloadUser(true)
         toastRef.current.show("Se han actualizado nombres y apellidos.", 2000)
         setShowModal(false) 
-        navigation.navigate("account")    
-        /*   
-        setInterval(() => {
-                    
-        }, 3000)  */ 
+                       
+        setTimeout(() => {
+            navigation.navigate("account")
+        }, 3000)
                
     }
 
