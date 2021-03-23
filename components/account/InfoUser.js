@@ -7,8 +7,8 @@ import { updateProfile, uploadImage } from '../../utils/actions'
 import { LoadImageFromGallery } from '../../utils/helpers'
 import AccountOptions from '../../components/account/AccountOptions'
                            
-export default function InfoUser({user, setloading, setloadingText, toastRef}) {
-
+export default function InfoUser({user, setloading, setloadingText, toastRef, setReloadUser}) {
+   
     const navigation = useNavigation()
 
     const [PhotoUrl, setPhotoUrl] = useState(user.photoURL)
@@ -69,7 +69,7 @@ export default function InfoUser({user, setloading, setloadingText, toastRef}) {
                  titleStyle= {styles.btnUpdate}
                  title="Actualizar Información"
                  onPress={()=>{
-                    navigation.navigate("accountoptions")// <AccountOptions user={user} toastRef={toastRef} />                  
+                    navigation.navigate("accountoptions", {userInfo: user, setReloadUser:setReloadUser})// <AccountOptions user={user} toastRef={toastRef} />                  
                  }}
             />
         </View>

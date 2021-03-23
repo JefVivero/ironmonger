@@ -7,19 +7,104 @@ import { useNavigation } from '@react-navigation/native'
 
 import { getCurrentUser } from '../../utils/actions'
 import Modal from '../Modal'
+import ChangeDisplayNameForm from './ChangeDisplayNameForm'
 
-export default function AccountOptions() {
+export default function AccountOptions({ route }) {
     const toastRef = useRef()
-    const navigation = useNavigation()
-    const menuOptions = generateOptions()
+    //const navigation = useNavigation()
 
-    const [user, setUser] = useState(null)
-    const [showModal, setShowModal] = useState(false)
+    const {userInfo, setReloadUser} = route.params
+    
+    const [user, setUser] = useState(userInfo.displayName)
+    const [showModal, setShowModal] = useState(false)   
+    const [renderComponent, setRenderComponent] = useState(null) 
+    //const [reloadUser, setReloadUser] = useState(false)
 
-    useEffect(() => {
+  /*  useEffect(() => {
         setUser(getCurrentUser())
-    }, [])
+        setReloadUser(false)
+    }, [reloadUser])*/
 
+    const generateOptions= ()=>{
+        return [
+            {
+                title : "Cambiar Nombres y Apellidos",
+                iconNameLeft: "account-circle",
+                iconColorLeft: "#ad2c33",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#ad2c33",
+                onPress: ()=> seletedComponent("displayName")
+            },{
+                title : "Cambiar Dirección",
+                iconNameLeft: "at",
+                iconColorLeft: "#ad2c33",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#ad2c33",
+                onPress: ()=> seletedComponent("displayAddres")
+            },
+            {
+                title : "Cambiar Teléfono",
+                iconNameLeft: "at",
+                iconColorLeft: "#ad2c33",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#ad2c33",
+                onPress: ()=> seletedComponent("phone")
+            },
+            {
+                title : "Cambiar Celular",
+                iconNameLeft: "at",
+                iconColorLeft: "#ad2c33",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#ad2c33",
+                onPress: ()=> seletedComponent("celular")
+            },
+            {
+                title : "Cambiar Email",
+                iconNameLeft: "at",
+                iconColorLeft: "#ad2c33",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#ad2c33",
+                onPress: ()=> seletedComponent("email")
+            },
+            {
+                title : "Cambiar Contraseña",
+                iconNameLeft: "lock-reset",
+                iconColorLeft: "#ad2c33",
+                iconNameRight: "chevron-right",
+                iconColorRight: "#ad2c33",
+                onPress: ()=> seletedComponent("password")
+            }
+        ]
+    } 
+
+    const seletedComponent = (key) =>{
+        switch (key) {
+            case "displayName":
+                setRenderComponent(
+                    <ChangeDisplayNameForm
+                        displayName= {userInfo.displayName}
+                        setShowModal={setShowModal}
+                        toastRef= {toastRef}
+                        setReloadUser={setReloadUser}
+                    />
+                )
+                break;
+            case "email":
+                setRenderComponent(
+                    <Text>email</Text>
+                )
+                break;
+            case "password":
+                setRenderComponent(
+                    <Text>password</Text>
+                )
+                break;   
+        }
+    
+       setShowModal(true)
+    }
+
+    const menuOptions = generateOptions()
 
     return (
         <View>
@@ -47,67 +132,13 @@ export default function AccountOptions() {
                 ))
             }
             <Modal isVisible={showModal}  setVisible={setShowModal}>
-                <Text>Hola Muncdo modal</Text>
-            </Modal>
+                {
+                    renderComponent
+                }
+            </Modal>             
             <Toast ref={toastRef} position="center" opacity={0.9}/>
         </View>
     )
-}
-
-const generateOptions= ()=>{
-    return [
-        {
-            title : "Cambiar Nombres y Apellidos",
-            iconNameLeft: "account-circle",
-            iconColorLeft: "#ad2c33",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#ad2c33",
-            onPress: ()=> seletedComponent("displayName")
-        },{
-            title : "Cambiar Dirección",
-            iconNameLeft: "at",
-            iconColorLeft: "#ad2c33",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#ad2c33",
-            onPress: ()=> seletedComponent("displayAddres")
-        },
-        {
-            title : "Cambiar Teléfono",
-            iconNameLeft: "at",
-            iconColorLeft: "#ad2c33",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#ad2c33",
-            onPress: ()=> seletedComponent("phone")
-        },
-        {
-            title : "Cambiar Celular",
-            iconNameLeft: "at",
-            iconColorLeft: "#ad2c33",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#ad2c33",
-            onPress: ()=> seletedComponent("celular")
-        },
-        {
-            title : "Cambiar Email",
-            iconNameLeft: "at",
-            iconColorLeft: "#ad2c33",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#ad2c33",
-            onPress: ()=> seletedComponent("email")
-        },
-        {
-            title : "Cambiar Contraseña",
-            iconNameLeft: "lock-reset",
-            iconColorLeft: "#ad2c33",
-            iconNameRight: "chevron-right",
-            iconColorRight: "#ad2c33",
-            onPress: ()=> seletedComponent("password")
-        }
-    ]
-} 
-
-const seletedComponent = (key) =>{
-
 }
 
 const styles = StyleSheet.create({

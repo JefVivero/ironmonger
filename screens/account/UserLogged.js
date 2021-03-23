@@ -15,10 +15,12 @@ export default function UserLogged() {
     const [loading, setloading] = useState(false)
     const [loadingText, setloadingText] = useState("")
     const [user, setUser] = useState(null)
+    const [reloadUser, setReloadUser] = useState(false)
 
     useEffect(() => {
         setUser(getCurrentUser())
-    }, [])
+        setReloadUser(false)
+    }, [reloadUser])
 
     return (
         <View style={styles.container}>
@@ -30,6 +32,7 @@ export default function UserLogged() {
                             setloading={setloading} 
                             setloadingText={setloadingText}
                             toastRef ={toastRef}
+                            setReloadUser ={setReloadUser}
                         />
                     </View>
                 )
