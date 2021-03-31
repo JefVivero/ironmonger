@@ -8,6 +8,7 @@ import Modal from '../Modal'
 import ChangeDisplayNameForm from './ChangeDisplayNameForm'
 import ChangeEmailForm from './ChangeEmailForm'
 import ChangePasswordForm from './ChangePasswordForm'
+import ChangePhoneNumberForm from './ChangePhoneNumberForm'
 
 export default function AccountOptions({ route }) {
     const toastRef = useRef()
@@ -106,8 +107,12 @@ export default function AccountOptions({ route }) {
                  break;   
             case "phone":
                  setRenderComponent(
-                    <Text>phone</Text>
-                    //phoneNumber
+                    <ChangePhoneNumberForm
+                        phoneNumber= {userInfo.phoneNumber}
+                        setShowModal={setShowModal}
+                        toastRef= {toastRef}
+                        setReloadUser={setReloadUser}
+                    />
                 )
                  break;   
             case "cellphone":

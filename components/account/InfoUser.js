@@ -7,10 +7,10 @@ import { updateProfile, uploadImage } from '../../utils/actions'
 import { LoadImageFromGallery } from '../../utils/helpers'
 import AccountOptions from '../../components/account/AccountOptions'
                            
-export default function InfoUser({user, setloading, setloadingText, toastRef, setReloadUser, typeUsers}) {
+export default function InfoUser({user, setloading, setloadingText, toastRef, setReloadUser}) {
    
     const navigation = useNavigation()
-    
+
     const [PhotoUrl, setPhotoUrl] = useState(user.photoURL)
 
     const changePhoto = async()=>{
@@ -39,11 +39,7 @@ export default function InfoUser({user, setloading, setloadingText, toastRef, se
     return (
         <View style={styles.BigContainer}>
               <Text style={styles.title}>Bienvenido</Text>
-              <Text style={styles.typeUser}>
-                 {
-                     typeUsers ? typeUsers.data.TypeUser : ""
-                 }
-              </Text>
+              <Text style={styles.typeUser}>TypeUser</Text>
             <View style={styles.container}> 
                 <Avatar
                 rounded ={ true }
@@ -64,8 +60,15 @@ export default function InfoUser({user, setloading, setloadingText, toastRef, se
                 </View>
             </View>
             <View style={styles.ContainerinfoContact}>
-                    <Text style={styles.infoContact}>Direccion: </Text>
-                    <Text style={styles.infoContact}>Teléfono: </Text>                    
+                    <Text style={styles.infoContact}>Direccion:
+                    
+                    </Text>
+                    <Text style={styles.infoContact}>Teléfono: 
+                     {
+                         user.phoneNumber ? user.phoneNumber : ""
+                     }
+                    </Text>
+                    <Text style={styles.infoContact}>Celular: </Text>
             </View>
             <Button
                  buttonStyle= {styles.btnUpdateInfo}
