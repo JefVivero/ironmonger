@@ -18,11 +18,13 @@ export const getCurrentUser = () =>{
     return firebase.auth().currentUser
 }
 
-export const registerUser = async(email, password)=>{
+export const registerUser = async(email, password, typeuser)=>{
     const result = { StatusResponse: true, error: null}
 
     try {
         await firebase.auth().createUserWithEmailAndPassword(email,password)
+        await saveUserType(typeuser)
+
         
     } catch (error) {
         result.error =  "Este correo ya ha sido registrado"
@@ -34,6 +36,30 @@ export const registerUser = async(email, password)=>{
 
 export const CloseSession = () =>{
     return firebase.auth().signOut()
+}
+
+
+
+const saveUserType =async(typeuser)=>{
+    const user = getCurrentUser()
+    const data = {id:user.uid, TypeUser:typeuser}
+    const response = await db.collection("TypeUsers").doc(user.uid).set(data)
+  
+}
+
+export const GetTypeUser= async()=>{
+    const user = getCurrentUser()
+    const result = {data:null}
+    const id = user.uid
+    try {
+        const response = await db.collection("TypeUsers").doc(id).get()
+        result.data = { id: response.id, ...response.data() }
+        //console.log(result.data)
+
+    } catch (error) {
+        
+    }
+    return result
 }
 
 export const LoginWithEmailAndPassword = async(email, password)=>{

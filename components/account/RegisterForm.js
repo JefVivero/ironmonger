@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import { StyleSheet, View, Text } from 'react-native'
-import { Input, Button, Icon } from 'react-native-elements'
+import { Input, Button, Icon, CheckBox } from 'react-native-elements'
 import { size } from 'lodash'
 import { useNavigation } from '@react-navigation/native'
 
@@ -18,10 +18,22 @@ export default function RegisterForm() {
     const [errorPassword, setErrorPassword] = useState("")
     const [errorConfirm, setErrorConfirm] = useState("")
     const [loading, setLoading] = useState(false)
-
+    const [chekedIron, setChekedIron] = useState(true)
+    const [chekedIronMonger, setchekedIronMonger] = useState(false)
 
     const DoOnChange=(e , type) =>{
         setFormData({...formData, [type]: e.nativeEvent.text})
+    }
+
+    const  checkedoptions = (valuechecked)=>{
+
+        if(valuechecked ==="1"){
+            setChekedIron(true)
+            setchekedIronMonger(false)
+            return
+        }
+        setChekedIron(false)
+        setchekedIronMonger(true)
     }
 
     const DoregisterUser= async()=>{
@@ -30,7 +42,14 @@ export default function RegisterForm() {
         }
 
         setLoading(true)
-        const result = await registerUser(formData.email, formData.password)
+        let typeuser
+        if(chekedIronMonger){
+            typeuser = "IronMonger"
+        }else{
+            typeuser =  "Iron"
+        }
+        
+        const result = await registerUser(formData.email, formData.password,typeuser)
         setLoading(false)
         if(!result.StatusResponse){
             setErrorEmail(result.error)
@@ -115,6 +134,20 @@ export default function RegisterForm() {
                     />
                     }
             />
+            <Text style= {styles.title}>Selecciona el tipo de usuario</Text>
+            <View style={styles.chekeds}>
+                <CheckBox
+                    title='IRON'
+                    checked={chekedIron}
+                    onPress={() => checkedoptions("1")}
+                />
+                <CheckBox
+                    title='IRONMONGER'
+                    checked={chekedIronMonger}
+                    onPress={() => checkedoptions("2")}
+                />
+            </View>
+           
             <Button
                 title="Registrar nuevo usuario"
                 containerStyle={styles.btncontainer}
@@ -129,7 +162,6 @@ export default function RegisterForm() {
 const defaultFormValues = ()=>{
     return { email: "", password:"", confirm:""}
 }
-
 
 const styles = StyleSheet.create({
     form:{
@@ -148,6 +180,16 @@ const styles = StyleSheet.create({
     },
     icon:{
         color:"#c1c1c1"
+    },
+    chekeds:{
+        alignSelf: "center",
+        alignItems: "center",
+        flexDirection: "row",
+    },
+    title:{
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: 17
     }
 })
 
