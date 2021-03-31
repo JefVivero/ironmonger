@@ -48,9 +48,9 @@ const styles = StyleSheet.create({
     description:{
         textAlign:"justify",
         marginBottom:20,
-        color: "#ad2c33"
+        color: "#000000"
     },
     button:{
-        backgroundColor: "#ad2c33"
+        backgroundColor: "#0e5f6a"
     } 
 })

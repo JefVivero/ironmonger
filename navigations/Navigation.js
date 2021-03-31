@@ -45,8 +45,8 @@ const screenOptions =(route, color)=>{
             <Tab.Navigator
               initialRouteName="ironmongers"
               tabBarOptions={{
-                inactiveTintColor:"#cc7474",
-                activeTintColor:"#ad2c33"            
+                inactiveTintColor:"#7eb0b7",
+                activeTintColor:"#0e5f6a"            
                }}
 
                screenOptions={ ({route}) => ({

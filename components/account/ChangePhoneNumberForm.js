@@ -17,8 +17,10 @@ export default function ChangePhoneNumberForm({phoneNumber, setShowModal, toastR
         if(!ValidateForm()){
             return
         }
- 
-        setLoading(true)
+
+        //console.log(newPhoneNumber)
+        
+       /* setLoading(true)
         const result = await updateProfile({ phoneNumber: newPhoneNumber})
         setLoading(false)
         
@@ -34,7 +36,7 @@ export default function ChangePhoneNumberForm({phoneNumber, setShowModal, toastR
         setTimeout(() => {
             navigation.navigate("account")
         }, 3000)
-              
+            */  
     }
 
     const ValidateForm=()=>{
@@ -63,7 +65,7 @@ export default function ChangePhoneNumberForm({phoneNumber, setShowModal, toastR
             errorMessage= {error}
             rightIcon={{
                 type: "material-community",
-                name: "account-circle-outline",
+                name: "chevron-right",
                 color: "#c2c2c2"
             }}
            />
