@@ -33,7 +33,7 @@ export default function InfoUser({user, setloading, setloadingText, toastRef, se
         }else{
             Alert.alert("Ha ocurrido un error al actualizar la foto de perfil.")
             return
-        }
+        } 
     }
 
     return (
