@@ -1,7 +1,7 @@
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
-import IronMongers from '../screens/IronMongers'
+import IronMongers from '../screens/IronMonger/IronMongers'
 
 const Stack = createStackNavigator()
 

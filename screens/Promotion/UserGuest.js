@@ -1,10 +1,11 @@
 import React from 'react'
 import { StyleSheet, Text, View, ScrollView, Image} from 'react-native'
 import { Button } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native'
+//import { useNavigation } from '@react-navigation/native'
 
-export default function UserGuest() {
-    const navigation = useNavigation()
+export default function UserGuest({navigation}) {
+    //const navigation = useNavigation()
+    
     return (
         <ScrollView
         centerContent={true}
@@ -19,11 +20,11 @@ export default function UserGuest() {
         <Text style={styles.description}> 
             Para ver la informacion que tienen los ferreteros para tí debes iniciar session en tu cuenta.
         </Text>
-      { /* <Button
+      { <Button
             buttonStyle={styles.button}
             title="Ingresar a la cuenta"
-            onPress={()=> navigation.navigate("account")}
-        />*/
+            onPress={() => navigation.navigate("login")}
+        />
       }
        </ScrollView>
     )

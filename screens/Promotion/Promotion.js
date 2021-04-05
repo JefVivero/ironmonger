@@ -1,24 +1,30 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { useFocusEffect } from '@react-navigation/native'
 import Loading from '../../components/Loading'
 
-import { getCurrentUser, isUserLogged } from '../../utils/actions'
+import { getCurrentUser, getDocumentById } from '../../utils/actions'
 import UserGuest from './UserGuest'
 import UserLogged from './UserLogged'
 
-export default function Promotion() {
+export default function Promotion({ navigation }) {
 
     const [Login, setLogin] = useState(null)
+    const [typeUser, setTypeUser] = useState(null)
+    const [reloadUser, setReloadUser] = useState(false)  
 
     useFocusEffect(
         useCallback(() => {
+            
             const user = getCurrentUser()
-
-            user ? setLogin(true) : setLogin(false)
-           // setLogin(isUserLogged())
-        }, [])
-    )
+            user ? setLogin(true) : setLogin(false)   
+            async function GetType(){
+                const response = await getDocumentById("TypeUsers", user.uid)
+                setTypeUser(response.document.TypeUser)
+            }
+            GetType()
+        }, [])        
+    )      
 
     if(Login==null){
         return <Loading
@@ -26,8 +32,7 @@ export default function Promotion() {
         />
     }
     
-
-    return Login ? <UserLogged/> : <UserGuest/>
+    return Login ? <UserLogged navigation={navigation} typeUser={typeUser}/> : <UserGuest navigation={navigation}/>
 }
 
 const styles = StyleSheet.create({})

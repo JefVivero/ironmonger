@@ -40,7 +40,7 @@ export default function ChangePhoneNumberForm({phoneNumber, setShowModal, toastR
     }
 
     const ValidateForm=()=>{
-        setError(null)
+        setError("")
 
         if(isEmpty(newPhoneNumber)){
             setError("Debes ingresar un numero de telefono")

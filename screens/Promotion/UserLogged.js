@@ -1,39 +1,62 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Input, Button, Icon } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native'
 
-import { getCurrentUser, GetTypeUser } from '../../utils/actions'
+
+import { getCurrentUser } from '../../utils/actions'
 import Loading from '../../components/Loading'
 import InfoUser from '../../components/account/InfoUser'
 import Toast  from 'react-native-easy-toast'
 
 
-export default function UserLogged() {
+export default function UserLogged({ navigation, typeUser }) {
     const toastRef = useRef()
-    const navigation = useNavigation()
 
     const [loading, setloading] = useState(false)
     const [loadingText, setloadingText] = useState("")
     const [user, setUser] = useState(null)
     const [reloadUser, setReloadUser] = useState(false)
-    const [typeUser, setTypeUser] = useState(null)
+   
 
-    const getTypeUsers= async() =>{
-        setTypeUser( await GetTypeUser())        
-    }
+    
 
     useEffect(() => {
         setUser(getCurrentUser())
-        setReloadUser(false)
-        getTypeUsers()
+        setReloadUser(false)                
+
     }, [reloadUser])
 
-    return (
-        <View>
+    
+
+    return (        
+        <View style={styles.viewBody}>
             <Text>UserLogged</Text>
+            {
+              typeUser ==="IronMonger" && (
+                <Icon
+                    type="material-community"
+                    name="plus"
+                    color="#0e5f6a"
+                    reverse
+                    containerStyle={styles.btnContainer}
+                /> 
+                )             
+            }
+             
         </View>
     )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    viewBody:{
+        flex: 1
+    },
+    btnContainer:{
+        position: "absolute",
+        bottom: 10,
+        alignSelf: "center",
+        shadowColor: "black",
+        shadowOffset: { width: 2, height: 2},
+        shadowOpacity: 0.5
+    }
+})

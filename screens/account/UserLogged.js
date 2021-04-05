@@ -1,8 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef, useEffect, useCallback } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { Input, Button, Icon } from 'react-native-elements'
-import { useNavigation } from '@react-navigation/native'
-import { CloseSession, getCurrentUser, GetTypeUser } from '../../utils/actions'
+import { useNavigation, useFocusEffect } from '@react-navigation/native'
+import { CloseSession, getCurrentUser, getDocumentById, GetTypeUser } from '../../utils/actions'
 import Loading from '../../components/Loading'
 import InfoUser from '../../components/account/InfoUser'
 import Toast  from 'react-native-easy-toast'
@@ -22,9 +22,28 @@ export default function UserLogged() {
         setTypeUser( await GetTypeUser())        
     }
 
+    /*useFocusEffect(
+        useCallback(() => {    
+            setUser(getCurrentUser()) 
+            async function GetInfo(){
+                const response = await getDocumentById("TypeUsers", user.uid)
+
+                if(!response.statusResponse){
+                    return
+                } 
+                
+                setTypeUser(response.document.TypeUser) 
+            }
+            GetInfo()
+            
+            setReloadUser(false)              
+            
+        }, [])
+    )*/
+
     useEffect(() => {
-        setUser(getCurrentUser())
-        setReloadUser(false)
+        setUser(getCurrentUser())  
+        setReloadUser(false) 
         getTypeUsers()
     }, [reloadUser])
 

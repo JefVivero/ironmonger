@@ -18,6 +18,11 @@ export const getCurrentUser = () =>{
     return firebase.auth().currentUser
 }
 
+export const getCurrentUser2 = async() =>{
+    const result = await firebase.auth().currentUser
+    return result
+}
+
 export const registerUser = async(email, password, typeuser)=>{
     const result = { StatusResponse: true, error: null}
 
@@ -49,7 +54,7 @@ const saveUserType =async(typeuser)=>{
 
 export const GetTypeUser= async()=>{
     const user = getCurrentUser()
-    const result = {data:null}
+    const result = {status: true, data:null, error:null}
     const id = user.uid
     try {
         const response = await db.collection("TypeUsers").doc(id).get()
@@ -57,9 +62,24 @@ export const GetTypeUser= async()=>{
         //console.log(result.data)
 
     } catch (error) {
+        result.error = error
+        result.status = false
         
     }
     return result
+}
+
+export const getDocumentById = async(collection, id) => {
+    const result = { statusResponse: true, error: null, document: null }
+    try {
+        const response = await db.collection(collection).doc(id).get()
+        result.document = response.data()
+        result.document.id = response.id
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
 }
 
 export const LoginWithEmailAndPassword = async(email, password)=>{

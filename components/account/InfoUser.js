@@ -9,9 +9,7 @@ import AccountOptions from '../../components/account/AccountOptions'
                            
 export default function InfoUser({user, setloading, setloadingText, toastRef, setReloadUser, typeUsers}) {
    
-    const navigation = useNavigation()
-    
-    //console.log(user)
+    const navigation = useNavigation()        
     
     const [PhotoUrl, setPhotoUrl] = useState(user.photoURL)
 
@@ -42,8 +40,8 @@ export default function InfoUser({user, setloading, setloadingText, toastRef, se
         <View style={styles.BigContainer}>
               <Text style={styles.title}>Bienvenido</Text>
               <Text style={styles.typeUser}>
-                 {
-                     typeUsers ? typeUsers.data.TypeUser : ""
+                 { //console.log(typeUsers)
+                    typeUsers ? typeUsers.data.TypeUser : ""
                  }
               </Text>
             <View style={styles.container}> 
