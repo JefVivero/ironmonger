@@ -1,20 +1,21 @@
-import React, { useEffect, useRef, useState, useCallback } from 'react'
+import React, { useRef, useState, useCallback } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import { useFocusEffect } from '@react-navigation/native'
-import { Input, Button, Icon } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
+
 import Loading from '../../components/Loading'
 import Toast  from 'react-native-easy-toast'
 
 import * as firebase from 'firebase'
 
-import { getCurrentUser, getDocumentById, GetTypeUser } from '../../utils/actions'
+import { getCurrentUser, getDocumentById } from '../../utils/actions'
 
 export default function IronMongers({ navigation }) {  
     const toastRef = useRef()  
     const [user, setUser] = useState(null)
     const [IstypeUser, setIsTypeUser] = useState(false)
     const [typeUser, setTypeUser] = useState(null)   
-    const [loading, setloading] = useState(false)
+    const [loading, setloading] = useState(false)    
          
    /* useFocusEffect(
         useCallback(() => { 
@@ -46,7 +47,7 @@ export default function IronMongers({ navigation }) {
         setTypeUser(response.document.TypeUser)
         
         if( typeUser === "IronMonger"){
-            console.log("Funca!!!")
+            navigation.navigate("add-options")
         }else if(typeUser === "Iron"){
             toastRef.current.show("Debes ser usuario IronMonger para agregar Ferreteros.", 3000)
         }else{
@@ -68,18 +69,18 @@ export default function IronMongers({ navigation }) {
 
     return (
         <View style={styles.viewBody}>
-            <Text>IronMongers</Text>
+            
             {  
                 IstypeUser && (
                     <Icon
                         type="material-community"
                         name="plus"
                         color="#0e5f6a"
-                        reverse
-                        raised
+                        reverse                        
                         containerStyle={styles.btnContainer}
                         onPress = { ()=> validateTypeUser() }
                     /> 
+
                 )                    
             }
             <Toast ref={toastRef} position="center" opacity={0.9}/>
