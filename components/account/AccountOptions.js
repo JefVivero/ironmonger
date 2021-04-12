@@ -23,48 +23,48 @@ export default function AccountOptions({ route }) {
             {
                 title : "Cambiar Nombres y Apellidos",
                 iconNameLeft: "account-circle",
-                iconColorLeft: "#ad2c33",
+                iconColorLeft: "#0e5f6a",
                 iconNameRight: "chevron-right",
-                iconColorRight: "#ad2c33",
+                iconColorRight: "#0e5f6a",
                 onPress: ()=> seletedComponent("displayName")
             },{
                 title : "Cambiar Dirección",
                 iconNameLeft: "home-circle",
-                iconColorLeft: "#ad2c33",
+                iconColorLeft: "#0e5f6a",
                 iconNameRight: "chevron-right",
-                iconColorRight: "#ad2c33",
+                iconColorRight: "#0e5f6a",
                 onPress: ()=> seletedComponent("Addres")
             },
             {
                 title : "Cambiar Teléfono",
                 iconNameLeft: "phone",
-                iconColorLeft: "#ad2c33",
+                iconColorLeft: "#0e5f6a",
                 iconNameRight: "chevron-right",
-                iconColorRight: "#ad2c33",
+                iconColorRight: "#0e5f6a",
                 onPress: ()=> seletedComponent("phone")
             },
             {
                 title : "Cambiar Celular",
                 iconNameLeft: "cellphone",
-                iconColorLeft: "#ad2c33",
+                iconColorLeft: "#0e5f6a",
                 iconNameRight: "chevron-right",
-                iconColorRight: "#ad2c33",
+                iconColorRight: "#0e5f6a",
                 onPress: ()=> seletedComponent("cellphone")
             },
             {
                 title : "Cambiar Email",
                 iconNameLeft: "at",
-                iconColorLeft: "#ad2c33",
+                iconColorLeft: "#0e5f6a",
                 iconNameRight: "chevron-right",
-                iconColorRight: "#ad2c33",
+                iconColorRight: "#0e5f6a",
                 onPress: ()=> seletedComponent("email")
             },
             {
                 title : "Cambiar Contraseña",
                 iconNameLeft: "lock-reset",
-                iconColorLeft: "#ad2c33",
+                iconColorLeft: "#0e5f6a",
                 iconNameRight: "chevron-right",
-                iconColorRight: "#ad2c33",
+                iconColorRight: "#0e5f6a",
                 onPress: ()=> seletedComponent("password")
             }
         ]
@@ -165,6 +165,6 @@ export default function AccountOptions({ route }) {
 const styles = StyleSheet.create({
     menuItem:{
         borderBottomWidth:1,
-        borderBottomColor:"#a7bfd3"
+        borderBottomColor:"#0e5f6a"
     }
 })

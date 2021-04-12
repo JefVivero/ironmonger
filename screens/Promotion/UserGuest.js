@@ -10,22 +10,23 @@ export default function UserGuest({navigation}) {
         <ScrollView
         centerContent={true}
         style ={styles.viewBody}
-       >
-        <Image
-            source= {require("../../assets/Logo.png")}
-            resizeMode= "contain"
-            style={styles.image}
-        />
-        <Text style={styles.title}>Conoce las promociones del momento</Text>
-        <Text style={styles.description}> 
-            Para ver la informacion que tienen los ferreteros para tí debes iniciar session en tu cuenta.
-        </Text>
-      { <Button
-            buttonStyle={styles.button}
-            title="Ingresar a la cuenta"
-            onPress={() => navigation.navigate("login")}
-        />
-      }
+        >
+            <Image
+                source= {require("../../assets/Logo.png")}
+                resizeMode= "contain"
+                style={styles.image}
+            />
+            <Text style={styles.title}>Conoce las promociones del momento</Text>
+            <Text style={styles.description}> 
+                Para ver la informacion que tienen los ferreteros para tí debes iniciar session en tu cuenta.
+            </Text>
+            { 
+                <Button
+                    buttonStyle={styles.button}
+                    title="Ingresar a la cuenta"
+                    onPress={() => navigation.navigate("login")}
+                />
+            }
        </ScrollView>
     )
 }
@@ -52,6 +53,6 @@ const styles = StyleSheet.create({
         color: "#000000"
     },
     button:{
-        backgroundColor: "#ad2c33"
+        backgroundColor: "#0e5f6a"
     } 
 })

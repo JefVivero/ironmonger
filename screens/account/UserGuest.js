@@ -10,22 +10,22 @@ export default function UserGuest() {
          centerContent={true}
          style ={styles.viewBody}
         >
-         <Image
-             source= {require("../../assets/Logo.png")}
-             resizeMode= "contain"
-             style={styles.image}
-         />
-         <Text style={styles.title}>Consulta y conoce lo mejor de las Ferreterias</Text>
-         <Text style={styles.description}> 
-             Ingresa y conoce el mejor servicio para mantenerte atento de tus marcas, fabricantes y Ferreterias
-             favoritas. Aquí podrás encontrar toda la información actualizada, precios reales y recibir todas
-             promociones en vivo.
-         </Text>
-         <Button
-             buttonStyle={styles.button}
-             title="Ver tu perfil"
-             onPress={()=> navigation.navigate("login")}
-         />
+            <Image
+                source= {require("../../assets/Logo.png")}
+                resizeMode= "contain"
+                style={styles.image}
+            />
+            <Text style={styles.title}>Consulta y conoce lo mejor de las Ferreterias</Text>
+            <Text style={styles.description}> 
+                Ingresa y conoce el mejor servicio para mantenerte atento de tus marcas, fabricantes y Ferreterias
+                favoritas. Aquí podrás encontrar toda la información actualizada, precios reales y recibir todas
+                promociones en vivo.
+            </Text>
+            <Button
+                buttonStyle={styles.button}
+                title="Ver tu perfil"
+                onPress={()=> navigation.navigate("login")}
+            />
         </ScrollView>
      )
 }
@@ -51,6 +51,6 @@ const styles = StyleSheet.create({
         color: "#000000"
     },
     button:{
-        backgroundColor: "#ad2c33"
+        backgroundColor: "#0e5f6a"
     } 
 })

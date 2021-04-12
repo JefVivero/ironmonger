@@ -143,11 +143,11 @@ const styles = StyleSheet.create({
     btnUpdateInfo:{
         marginTop: 5,
         borderRadius: 1,
-        backgroundColor: "#ad2c33",
+        backgroundColor: "#0e5f6a",
         borderTopWidth: 1,
-        borderTopColor: "#ad2c33",
+        borderTopColor: "#0e5f6a",
         borderBottomWidth: 1,
-        borderBottomColor: "#ad2c33",
+        borderBottomColor: "#0e5f6a",
         paddingVertical: 3
     },
     btnUpdate:{

@@ -71,7 +71,7 @@ export default function IronMongers({ navigation }) {
 
     return (
         <View style={styles.viewBody}>
-            <Text style={styles.title}>Mantente atento a las ferreterias del momento.</Text>
+            <Text style={styles.title}>Mantente atento a las ferreterias del momento.</Text>            
             {
                 size(ironmongers) > 0 ? (
                     <ListIronmongers 
@@ -90,7 +90,7 @@ export default function IronMongers({ navigation }) {
                     <Icon
                         type="material-community"
                         name="plus"
-                        color="#ad2c33"
+                        color="#0e5f6a"
                         reverse                        
                         containerStyle={styles.btnContainer}
                         onPress = {validateTypeUser}
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     btnContainer:{
         position: "absolute",
         bottom: 10,
-        alignSelf: "center",
+        right: 10,
         shadowColor: "black",
         shadowOffset: { width: 2, height: 2},
         shadowOpacity: 0.5
@@ -134,7 +134,7 @@ const styles = StyleSheet.create({
         textAlign: "center",
         marginTop: 5,
         paddingHorizontal: 30,
-        backgroundColor: "#ad2c33",
+        backgroundColor: "#0e5f6a",
         color: "#fff"
     }
 })

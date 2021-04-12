@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
         marginHorizontal:40
     },
     divider:{
-        backgroundColor: "#ad2c33",
+        backgroundColor: "#0e5f6a",
         margin: 40
     },
     register:{

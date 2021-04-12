@@ -50,7 +50,7 @@ export default function Services({ navigation }) {
                     <Icon
                         type="material-community"
                         name="plus"
-                        color="#ad2c33"
+                        color="#0e5f6a"
                         reverse                        
                         containerStyle={styles.btnContainer}
                         onPress = {validateTypeUser}

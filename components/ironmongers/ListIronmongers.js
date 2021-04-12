@@ -1,7 +1,7 @@
 import React from 'react'
 import { ActivityIndicator } from 'react-native'
 import { TouchableOpacity, FlatList, StyleSheet, Text, View } from 'react-native'
-import { Image, Divider } from 'react-native-elements'
+import { Image, Divider, Rating } from 'react-native-elements'
 import { size } from 'lodash'
 import { formatPhone } from '../../utils/helpers'
 
@@ -25,7 +25,7 @@ export default function ListIronmongers({ironmongers, navigation, handleLoadMore
 }
 
 function Ironmonger({ironmonger, navigation}){
-    const {id, images, name, address, description, phone, email, callingCode}= ironmonger.item
+    const {id, images, name, address, description, phone, email, callingCode, rating}= ironmonger.item
     const imageIronmonger = images[0]
 
     const goIronmonger = ()=>{
@@ -35,7 +35,15 @@ function Ironmonger({ironmonger, navigation}){
     return(
         <View>
             <TouchableOpacity onPress={goIronmonger}>
-                <Text style={styles.ironName}>{name}</Text>
+                <View style={styles.viewtitle}> 
+                    <Text style={styles.ironName}>{name}</Text>
+                    <Rating
+                        style={styles.ratingironmonger}
+                        imageSize={20}
+                        readonly
+                        startingValue={parseFloat(rating)}
+                    />
+                </View>
                 <View style={styles.viewironmonger}>
                     <View style={styles.viewimage}>
                         <Image
@@ -76,7 +84,6 @@ const styles = StyleSheet.create({
     },
     ironName:{
         fontWeight: "bold",
-        alignSelf: "center",
         paddingTop: 2,
         margin: 2,
         color: "#000",
@@ -98,5 +105,11 @@ const styles = StyleSheet.create({
         backgroundColor: "#ad2c33",
         margin: 20
     },
+    ratingironmonger:{
+    },
+    viewtitle:{
+        flexDirection: "column",
+        alignItems: "center"
+    }
 
 })

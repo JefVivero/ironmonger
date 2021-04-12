@@ -176,7 +176,7 @@ const styles = StyleSheet.create({
         alignSelf: "center"
     },
     btn:{
-        backgroundColor: "#ad2c33"
+        backgroundColor: "#0e5f6a"
     },
     icon:{
         color:"#c1c1c1"
