@@ -17,12 +17,19 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.iron.ironmongers"
     },
     "android": {
+      "package": "com.iron.ironmongers",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyDMe858AKGvRKdAg67fr0GZZAFXyaSLJLc"
+        }
       },
       "permissions": [
         "CAMERA_ROLL",
@@ -31,7 +38,8 @@
         "LOCATION",
         "ACCESS_COARSE_LOCATION",
         "ACCESS_FINE_LOCATION",
-        "USER_FACING_NOTIFICATIONS"
+        "USER_FACING_NOTIFICATIONS",
+        "MEDIA_LIBRARY"
       ]
     },
     "web": {

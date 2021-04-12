@@ -7,13 +7,11 @@ import AddIronMongersForm from '../../components/ironmongers/AddIronMongersForm'
 import Loading from '../../components/Loading'
 
 
-export default function AddIronMonger({navigation, route}) {
+export default function AddIronMonger({navigation}) {
 
-    const { setIsVisible } = route.params
     const [loading, setLoading] = useState(false)
     const toastRef = useRef()
 
-    setIsVisible(false)
     return (
         <KeyboardAwareScrollView>
             <AddIronMongersForm 

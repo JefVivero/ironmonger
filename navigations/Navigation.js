@@ -8,6 +8,7 @@ import AccountStack from './AccountStack'
 import FavoritesStack from './FavoritesStack'
 import PromotionStack from './PromotionStack'
 import IronMongerStack from './IronMongersStack'
+import ServicesStack from './ServicesStack' 
 
 const Tab = createBottomTabNavigator()
 
@@ -18,6 +19,9 @@ const screenOptions =(route, color)=>{
     switch (route.name) {
       case "ironmongers":
         iconName ="tools"
+        break;
+      case "services":
+        iconName ="account-hard-hat"
         break;
       case "favorites":
         iconName ="heart"
@@ -45,8 +49,8 @@ const screenOptions =(route, color)=>{
             <Tab.Navigator
               initialRouteName="ironmongers"
               tabBarOptions={{
-                inactiveTintColor:"#7eb0b7",
-                activeTintColor:"#0e5f6a"            
+                inactiveTintColor:"#d17673",
+                activeTintColor:"#ad2c33"            
                }}
 
                screenOptions={ ({route}) => ({
@@ -56,7 +60,12 @@ const screenOptions =(route, color)=>{
             <Tab.Screen
                name="ironmongers"
                component={IronMongerStack}
-               options={{title:"Ferreteros"}}
+               options={{title:"Ferreterias"}}
+            />
+            <Tab.Screen
+               name="services"
+               component={ServicesStack}
+               options={{title:"Servicios"}}
             />
             <Tab.Screen
                name="favorites"

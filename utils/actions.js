@@ -198,3 +198,50 @@ export const addDocumentWithId = async(collection, data, doc) => {
     }
     return result     
 }
+
+export const getIronmongers = async(limitIronmongers) => {
+    const result = { statusResponse: true, error: null, ironmongers: [], startIronmonger: null }
+    try {
+        const response = await db
+        .collection("ironmongers")
+        .orderBy("createAt", "desc")
+        .limit(limitIronmongers)
+        .get()
+        if(response.docs.length > 0){
+            result.startIronmonger = response.docs[response.docs.length-1]
+        }
+        response.forEach((doc) =>{
+            const ironmonger = doc.data()
+            ironmonger.id = doc.id
+            result.ironmongers.push(ironmonger)
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
+
+export const getMoreIronmongers = async(limitIronmongers, startIronmonger) => {
+    const result = { statusResponse: true, error: null, ironmongers: [], startIronmonger: null }
+    try {
+        const response = await db
+        .collection("ironmongers")
+        .orderBy("createAt", "desc")
+        .startAfter(startIronmonger.data().createAt)
+        .limit(limitIronmongers)
+        .get()
+        if(response.docs.length > 0){
+            result.startIronmonger = response.docs[response.docs.length-1]
+        }
+        response.forEach((doc) =>{
+            const ironmonger = doc.data()
+            ironmonger.id = doc.id
+            result.ironmongers.push(ironmonger)
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}

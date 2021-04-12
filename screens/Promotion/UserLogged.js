@@ -36,7 +36,7 @@ export default function UserLogged({ navigation, typeUser }) {
                 <Icon
                     type="material-community"
                     name="plus"
-                    color="#0e5f6a"
+                    color="#ad2c33"
                     reverse
                     containerStyle={styles.btnContainer}
                 /> 
