@@ -245,3 +245,23 @@ export const getMoreIronmongers = async(limitIronmongers, startIronmonger) => {
     }
     return result     
 }
+
+export const getIronMReviews = async(idironM) => {
+    const result = { statusResponse: true, error: null, reviews: [] }
+    try {
+        const response = await db
+        .collection("reviews")
+        .where("idIronmonger", "==", idironM)
+        .get()
+    
+        response.forEach((doc) =>{
+            const review = doc.data()
+            review.id = doc.id
+            result.reviews.push(review)
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
