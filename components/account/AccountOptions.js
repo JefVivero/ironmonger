@@ -64,7 +64,7 @@ export default function AccountOptions({ route }) {
             typeUsers.TypeUser === "IronMonger" ? (
                 {
                     title : "Cambiar a IRON",
-                    iconNameLeft: "lock-reset",
+                    iconNameLeft: "account-switch",
                     iconColorLeft: "#0e5f6a",
                     iconNameRight: "chevron-right",
                     iconColorRight: "#0e5f6a",
@@ -73,7 +73,7 @@ export default function AccountOptions({ route }) {
             ) : (
                 {
                     title : "Cambiar a IRONMONGER",
-                    iconNameLeft: "lock-reset",
+                    iconNameLeft: "account-switch",
                     iconColorLeft: "#0e5f6a",
                     iconNameRight: "chevron-right",
                     iconColorRight: "#0e5f6a",
@@ -162,19 +162,19 @@ export default function AccountOptions({ route }) {
                         style= {styles.menuItem}
                         onPress={menu.onPress}
                     >
-                    <Icon
-                        type="material-community"
-                        name= {menu.iconNameLeft}
-                        color = {menu.iconColorLeft}
-                    />
-                    <ListItem.Content>
-                        <ListItem.Title>{menu.title}</ListItem.Title>
-                    </ListItem.Content>
-                     <Icon
-                        type="material-community"
-                        name= {menu.iconNameRight}
-                        color = {menu.iconColorRight}
-                    />
+                        <Icon
+                            type="material-community"
+                            name= {menu.iconNameLeft}
+                            color = {menu.iconColorLeft}
+                        />
+                        <ListItem.Content>
+                            <ListItem.Title>{menu.title}</ListItem.Title>
+                        </ListItem.Content>
+                        <Icon
+                            type="material-community"
+                            name= {menu.iconNameRight}
+                            color = {menu.iconColorRight}
+                        />
                     </ListItem>
                 ))
             }

@@ -55,7 +55,8 @@ export default function ChangePhoneNumberForm({Phone, IdDoc, setShowModal, toast
     return (
         <View style={styles.view}>
            <Input
-            placeholder="Ingresa el número de WhatsApp"
+            placeholder="Ingresa el número de WhatsApp"            
+            keyboardType="phone-pad"
             containerStyle={styles.input}
             defaultValue={Phone}
             onChange={(e) => setPhone(e.nativeEvent.text)}
