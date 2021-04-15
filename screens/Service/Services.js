@@ -27,7 +27,7 @@ export default function Services({ navigation }) {
         if( typeUser == "IronMonger"){
             navigation.navigate("add-service")
         }else if(typeUser == "Iron"){
-            toastRef.current.show("Debes ser usuario IronMonger para agregar Ferreteros.", 3000)
+            toastRef.current.show("Debes ser usuario IronMonger para agregar Servicios.", 3000)
         }else{
             toastRef.current.show("Algo ha salido mal, por favor intenta mas tarde.", 3000)
         } 

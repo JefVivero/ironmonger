@@ -47,7 +47,12 @@ export const CloseSession = () =>{
 
 const saveUserType =async(typeuser)=>{
     const user = getCurrentUser()
-    const data = {id:user.uid, TypeUser:typeuser}
+    const data = {
+         id:user.uid,
+         TypeUser:typeuser,
+         Address: "",
+         Phone: ""
+    }
     const response = await db.collection("TypeUsers").doc(user.uid).set(data)
   
 }

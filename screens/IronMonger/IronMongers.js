@@ -31,7 +31,7 @@ export default function IronMongers({ navigation }) {
         if( typeUser == "IronMonger"){
             navigation.navigate("add-ironmonger")
         }else if(typeUser == "Iron"){
-            toastRef.current.show("Debes ser usuario IronMonger para agregar Ferreteros.", 3000)
+            toastRef.current.show("Debes ser usuario IronMonger para agregar Ferreterias.", 3000)
         }else{
             toastRef.current.show("Algo ha salido mal, por favor intenta mas tarde.", 3000)
         } 

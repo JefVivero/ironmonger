@@ -8,15 +8,17 @@ import Modal from '../Modal'
 import ChangeDisplayNameForm from './ChangeDisplayNameForm'
 import ChangeEmailForm from './ChangeEmailForm'
 import ChangePasswordForm from './ChangePasswordForm'
+import ChangeAddressForm from './ChangeAddressForm'
 import ChangePhoneNumberForm from './ChangePhoneNumberForm'
+import ChangeTypeUserForm from './ChangeTypeUserForm'
 
 export default function AccountOptions({ route }) {
     const toastRef = useRef()
 
-    const {userInfo, setReloadUser} = route.params
+    const {userInfo, setReloadUser, typeUsers} = route.params
     
     const [showModal, setShowModal] = useState(false)   
-    const [renderComponent, setRenderComponent] = useState(null) 
+    const [renderComponent, setRenderComponent] = useState(null)  
 
     const generateOptions= ()=>{
         return [
@@ -33,23 +35,15 @@ export default function AccountOptions({ route }) {
                 iconColorLeft: "#0e5f6a",
                 iconNameRight: "chevron-right",
                 iconColorRight: "#0e5f6a",
-                onPress: ()=> seletedComponent("Addres")
+                onPress: ()=> seletedComponent("Address")
             },
             {
-                title : "Cambiar Teléfono",
-                iconNameLeft: "phone",
-                iconColorLeft: "#0e5f6a",
-                iconNameRight: "chevron-right",
-                iconColorRight: "#0e5f6a",
-                onPress: ()=> seletedComponent("phone")
-            },
-            {
-                title : "Cambiar Celular",
+                title : "Cambiar Numero de Celular",
                 iconNameLeft: "cellphone",
                 iconColorLeft: "#0e5f6a",
                 iconNameRight: "chevron-right",
                 iconColorRight: "#0e5f6a",
-                onPress: ()=> seletedComponent("cellphone")
+                onPress: ()=> seletedComponent("Phone")
             },
             {
                 title : "Cambiar Email",
@@ -66,7 +60,26 @@ export default function AccountOptions({ route }) {
                 iconNameRight: "chevron-right",
                 iconColorRight: "#0e5f6a",
                 onPress: ()=> seletedComponent("password")
-            }
+            },
+            typeUsers.TypeUser === "IronMonger" ? (
+                {
+                    title : "Cambiar a IRON",
+                    iconNameLeft: "lock-reset",
+                    iconColorLeft: "#0e5f6a",
+                    iconNameRight: "chevron-right",
+                    iconColorRight: "#0e5f6a",
+                    onPress: ()=> seletedComponent("typeUser")
+                }
+            ) : (
+                {
+                    title : "Cambiar a IRONMONGER",
+                    iconNameLeft: "lock-reset",
+                    iconColorLeft: "#0e5f6a",
+                    iconNameRight: "chevron-right",
+                    iconColorRight: "#0e5f6a",
+                    onPress: ()=> seletedComponent("typeUser")
+                }
+            )
         ]
     } 
 
@@ -92,7 +105,7 @@ export default function AccountOptions({ route }) {
                     />
                 )
                 break;
-            case "password":
+            case "password": 
                 setRenderComponent(
                     <ChangePasswordForm
                         setShowModal={setShowModal}
@@ -100,26 +113,39 @@ export default function AccountOptions({ route }) {
                     /> 
                 )
                 break;   
-            case "Addres":
+            case "Address":
                 setRenderComponent(
-                    <Text>Addres</Text>
+                    <ChangeAddressForm
+                        Address={typeUsers.Address}
+                        IdDoc={typeUsers.id}
+                        setShowModal={setShowModal}
+                        toastRef= {toastRef}
+                        setReloadUser={setReloadUser}
+                    />
                  )
-                 break;   
-            case "phone":
-                 setRenderComponent(
+                 break;
+            case "Phone":
+                setRenderComponent(
                     <ChangePhoneNumberForm
-                        phoneNumber= {userInfo.phoneNumber}
+                        Phone={typeUsers.Phone}
+                        IdDoc={typeUsers.id}
                         setShowModal={setShowModal}
                         toastRef= {toastRef}
                         setReloadUser={setReloadUser}
                     />
                 )
-                 break;   
-            case "cellphone":
+                 break;
+            case "typeUser":
                 setRenderComponent(
-                    <Text>cellphone</Text>
-                )
-                 break;                          
+                    <ChangeTypeUserForm
+                        TypeUser={typeUsers.TypeUser}
+                        IdDoc={typeUsers.id}
+                        setShowModal={setShowModal}
+                        toastRef= {toastRef}
+                        setReloadUser={setReloadUser}
+                    />
+                ) 
+                break;                         
         }
     
        setShowModal(true)

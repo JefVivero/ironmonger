@@ -6,8 +6,8 @@ import { useNavigation } from '@react-navigation/native'
 
 import { updateDocument } from '../../utils/actions'
 
-export default function ChangePhoneNumberForm({Phone, IdDoc, setShowModal, toastRef, setReloadUser}) {
-    const [newPhone, setPhone] = useState(null)
+export default function ChangeAddressForm({Address, IdDoc, setShowModal, toastRef, setReloadUser}) {
+    const [newAddres, setNewAddress] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(false)
     const navigation = useNavigation()
@@ -18,16 +18,16 @@ export default function ChangePhoneNumberForm({Phone, IdDoc, setShowModal, toast
         }
 
         setLoading(true)
-        const result = await updateDocument("TypeUsers", IdDoc, {Phone:newPhone})
+        const result = await updateDocument("TypeUsers", IdDoc, {Address:newAddres})
         setLoading(false)
         
         if(!result.statusResponse){
-            setError("Error al actualizar el WhatsApp, por favor intentar mas tarde.")
+            setError("Error al actualizar la dirección, por favor intentar mas tarde.")
             return
         }
         
         setReloadUser(true)
-        toastRef.current.show("Se ha actualizado el número de WhatsApp.", 2000)
+        toastRef.current.show("Se ha actualizado la dirección.", 2000)
         setShowModal(false) 
                        
         setTimeout(() => {
@@ -39,13 +39,13 @@ export default function ChangePhoneNumberForm({Phone, IdDoc, setShowModal, toast
     const ValidateForm=()=>{
         setError(null)
 
-        if(isEmpty(newPhone)){
-            setError("Debes ingresar el WhatsApp")
+        if(isEmpty(newAddres)){
+            setError("Debes ingresar la dirección")
             return false
         }
 
-        if(newPhone === Phone){
-            setError("Debes ingresar un whatsApp diferente al actual")
+        if(newAddres === Address){
+            setError("Debes ingresar una dirección diferente a la actual")
             return false
         }
 
@@ -55,19 +55,19 @@ export default function ChangePhoneNumberForm({Phone, IdDoc, setShowModal, toast
     return (
         <View style={styles.view}>
            <Input
-            placeholder="Ingresa el número de WhatsApp"
+            placeholder="Ingresa Dirección"
             containerStyle={styles.input}
-            defaultValue={Phone}
-            onChange={(e) => setPhone(e.nativeEvent.text)}
+            defaultValue={Address}
+            onChange={(e) => setNewAddress(e.nativeEvent.text)}
             errorMessage= {error}
             rightIcon={{
                 type: "material-community",
-                name: "cellphone",
+                name: "home-circle",
                 color: "#c2c2c2"
             }}
            />
            <Button
-            title= "Cambiar WhatsApp"
+            title= "Cambiar Dirección"
             containerStyle= {styles.btnContainer}
             buttonStyle= {styles.btn}
             onPress= {() => onSubmit()}

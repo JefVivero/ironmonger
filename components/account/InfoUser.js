@@ -40,8 +40,8 @@ export default function InfoUser({user, setloading, setloadingText, toastRef, se
         <View style={styles.BigContainer}>
               <Text style={styles.title}>Bienvenido</Text>
               <Text style={styles.typeUser}>
-                 { //console.log(typeUsers)
-                    typeUsers ? typeUsers.data.TypeUser : ""
+                 { 
+                    typeUsers ? typeUsers.TypeUser : ""
                  }
               </Text>
             <View style={styles.container}> 
@@ -64,24 +64,23 @@ export default function InfoUser({user, setloading, setloadingText, toastRef, se
                 </View>
             </View>
             <View style={styles.ContainerinfoContact}>
-                    <Text style={styles.infoContact}>Direccion: 
+                    <Text style={styles.infoContact}>Direccion: { } 
                         {
-                            //typeUsers ? typeUsers.address : ""
+                            typeUsers ? typeUsers.Address : ""
                         }
-                    </Text>
-                    <Text style={styles.infoContact}>Teléfono: 
+                    </Text>  
+                    <Text style={styles.infoContact}>WhatsApp: { }
                         {
-                            user.phoneNumber ? user.phoneNumber : ""
+                            typeUsers ? typeUsers.Phone : ""
                         }
-                    </Text>   
-                    <Text style={styles.infoContact}>WhatsApp: </Text>                  
+                    </Text>                  
             </View>
             <Button
                  buttonStyle= {styles.btnUpdateInfo}
                  titleStyle= {styles.btnUpdate}
                  title="Actualizar Información"
                  onPress={()=>{
-                    navigation.navigate("accountoptions", {userInfo: user, setReloadUser:setReloadUser})// <AccountOptions user={user} toastRef={toastRef} />                  
+                    navigation.navigate("accountoptions", {userInfo: user, setReloadUser:setReloadUser, typeUsers:typeUsers})// <AccountOptions user={user} toastRef={toastRef} />                  
                  }}
             />
         </View>
@@ -135,9 +134,9 @@ const styles = StyleSheet.create({
     infoContact:{
         fontWeight :"bold",        
         paddingVertical: 1,
-        paddingHorizontal: 85,
+        paddingHorizontal: 70,
         borderWidth: 2,
-        textAlign: "center",
+        textAlign: "left",
         marginTop: 5,        
     },
     btnUpdateInfo:{

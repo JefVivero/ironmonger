@@ -97,7 +97,7 @@ export default function ChangeEmailForm({email, setShowModal, toastRef, setReloa
                 <Icon
                     type= "material-community"
                     name= {showPassword ? "eye-off-outline" : "eye-outline"}
-                    iconStyle ={{color: "c2c2c2"}}
+                    iconStyle ={{color: "#c2c2c2"}}
                     onPress= {()=> setshowPassword(!showPassword)}
                 />
             }

@@ -6,59 +6,53 @@ import { CloseSession, getCurrentUser, getDocumentById, GetTypeUser } from '../.
 import Loading from '../../components/Loading'
 import InfoUser from '../../components/account/InfoUser'
 import Toast  from 'react-native-easy-toast'
+import firebase from 'firebase/app'
 
-
-export default function UserLogged() {
+export default function UserLogged({infoUser, userData}) {
     const toastRef = useRef()
     const navigation = useNavigation()
 
     const [loading, setloading] = useState(false)
     const [loadingText, setloadingText] = useState("")
-    const [user, setUser] = useState(null)
+    const [users, setUser] = useState(userData)
     const [reloadUser, setReloadUser] = useState(false)
     const [typeUser, setTypeUser] = useState(null)
 
+    
     const getTypeUsers= async() =>{
         setTypeUser( await GetTypeUser())        
     }
 
     /*useFocusEffect(
         useCallback(() => {    
-            setUser(getCurrentUser()) 
-            async function GetInfo(){
-                const response = await getDocumentById("TypeUsers", user.uid)
-
-                if(!response.statusResponse){
-                    return
-                } 
-                
-                setTypeUser(response.document.TypeUser) 
-            }
-            GetInfo()
-            
-            setReloadUser(false)              
-            
-        }, [])
+            //console.log(user)
+            firebase.auth().onAuthStateChanged((user) => {
+                user ? setUser(user) : setUser(null)
+            })
+           
+            setReloadUser(false)  
+        }, [reloadUser])
     )*/
 
+
     useEffect(() => {
-        setUser(getCurrentUser())  
+        //setUser(getCurrentUser())  
         setReloadUser(false) 
-        getTypeUsers()
+        //getTypeUsers()
     }, [reloadUser])
 
     return (
         <View style={styles.container}>
             { 
-                user && (
+                users && (
                     <View>
                         <InfoUser 
-                            user={user} 
+                            user={users} 
                             setloading={setloading} 
                             setloadingText={setloadingText}
                             toastRef ={toastRef}
                             setReloadUser ={setReloadUser}
-                            typeUsers = {typeUser}
+                            typeUsers = {infoUser}
                         />
                     </View>
                 )
