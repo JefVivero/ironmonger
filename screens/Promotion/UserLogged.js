@@ -48,6 +48,7 @@ export default function UserLogged({ navigation, userData, infoUser, Promotions,
                         Promotions={Promotions}
                         navigation={navigation}
                         handleLoadMore= {handleLoadMore}
+                        infoUser={infoUser}
                    />
                 ) : (
                     <View style={styles.nofoundwiew}>

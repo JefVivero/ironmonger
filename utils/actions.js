@@ -357,3 +357,15 @@ export const getIronMongersByUser = async(idUser) => {
     }
     return result     
 }
+
+export const DeletePromotions = async(idPromotion) => {
+    const result = { statusResponse: true, error: null }
+    try {
+            await db.collection("promotions").doc(idPromotion).delete()  
+
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}

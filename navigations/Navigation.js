@@ -62,11 +62,11 @@ const screenOptions =(route, color)=>{
                component={IronMongerStack}
                options={{title:"Ferreterias"}}
             />
-            <Tab.Screen
+            {/*<Tab.Screen
                name="services"
                component={ServicesStack}
                options={{title:"Servicios"}}
-            />
+            />*/}
             <Tab.Screen
                name="favorites"
                component={FavoritesStack}

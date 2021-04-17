@@ -21,7 +21,7 @@ export default function AddPromotion({navigation, route}) {
                 userData={userData}
             />
             <Loading isVisible={loading} text="Creando promoción..."/>
-            <Toast ref={toastRef} position="center" opacity={0.9}/>
+            <Toast ref={toastRef} position="top" opacity={0.9}/>
         </KeyboardAwareScrollView>
     )
 }

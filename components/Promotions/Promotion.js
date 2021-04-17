@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { Alert, ScrollView, Dimensions, StyleSheet, Text, View, ActivityIndicator } from 'react-native'
-import { getDocumentById } from '../../utils/actions'
-import { ListItem, Icon } from 'react-native-elements'
+import { DeletePromotions, getDocumentById } from '../../utils/actions'
+import { ListItem, Icon, Button } from 'react-native-elements'
 import { useFocusEffect } from '@react-navigation/native'
 import firebase from 'firebase/app'
 import MapIronmonger from '../ironmongers/MapIronmonger'
+import Toast from 'react-native-easy-toast'
 
 import CarouselImages from '../CarouselImages'
 import Loading from '../Loading'
@@ -14,7 +15,8 @@ import { map } from 'lodash'
 const widthScreen = Dimensions.get("window").width
 
 export default function Promotion({ navigation , route }) {
-    const { id, name }  = route.params   
+    const toastRef = useRef()
+    const { id, name, infoUser }  = route.params   
     const [promotion, setPromotion] = useState(null)
     const [activeSlide, setActiveSlide] = useState(0)
     const [userLogged, setuserLogged] = useState(false)
@@ -56,6 +58,47 @@ export default function Promotion({ navigation , route }) {
         )
     }
 
+    const RemovePromotion = () =>{
+        Alert.alert(
+            "Eliminar Promoción",
+            "¿Estas seguro que quieres eliminar la promoción?",
+            [
+                {
+                    text: "No",
+                    style: "cancel"                    
+                },
+                {
+                    text: "Sí",
+                    onPress: () => {
+                        DeletePromotion()
+                    }
+                }
+            ],
+            { cancelable: true }
+        )  
+        
+    }
+
+    const DeletePromotion = async() =>{
+        if(infoUser.id === promotion.createBy){
+            const response = await DeletePromotions(promotion.id)
+
+            if(response.statusResponse){
+                toastRef.current.show("Se ha eliminado la promoción.", 2000)
+                setTimeout(() => {
+                    navigation.goBack()
+                }, 3000)
+                
+            }else{
+                toastRef.current.show("No se pudo eliminar la promoción, por favor intenta más tarde.", 3000)
+                return
+            }
+        }else{
+            toastRef.current.show("No tienes permitido eliminar esta promoción.", 3000)
+            return
+        }
+
+    }
     
     return (
         <ScrollView style={styles.viewbody}>
@@ -81,6 +124,18 @@ export default function Promotion({ navigation , route }) {
                     />
                 )
             }
+            {  
+                infoUser && (
+                    infoUser.id === promotion.createBy && (
+                        <Button
+                            title="Eliminar Promoción"
+                            onPress={RemovePromotion}
+                            buttonStyle={styles.btnDelPromotion}
+                        />
+                    )
+                )
+            }
+            <Toast ref={toastRef} position="center" opacity={0.9}/>
         </ScrollView>
     )
 }
@@ -234,6 +289,10 @@ const styles = StyleSheet.create({
         position: "absolute",
         right: 0,
         bottom: 0
-    }
+    },
+    btnDelPromotion: {
+        margin: 20,
+        backgroundColor: "red"
+    },
 
 })

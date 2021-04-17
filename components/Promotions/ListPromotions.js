@@ -5,7 +5,7 @@ import { Image, Divider, Rating } from 'react-native-elements'
 import { size } from 'lodash'
 import { formatPhone } from '../../utils/helpers'
 
-export default function ListPromotions({Promotions, navigation, handleLoadMore}) {
+export default function ListPromotions({Promotions, navigation, handleLoadMore, infoUser}) {
     return (
         <View>
             <FlatList
@@ -17,6 +17,7 @@ export default function ListPromotions({Promotions, navigation, handleLoadMore})
                     <Promotionn
                         promotion ={promotion}
                         navigation ={navigation}
+                        infoUser= {infoUser}
                     />
                 )}
                 />
@@ -24,22 +25,23 @@ export default function ListPromotions({Promotions, navigation, handleLoadMore})
     )
 }
 
-function Promotionn({promotion, navigation}){
+function Promotionn({promotion, navigation, infoUser}){
     const {id, name, images, description}= promotion.item
     const imagePromotion= images[0]
 
     const goPromotion = ()=>{
-        navigation.navigate("promotion", { id, name })
+        navigation.navigate("promotion", { id, name, infoUser })
     }
 
     return(
         <View>
             <TouchableOpacity onPress={goPromotion}>
                 <View style={styles.viewtitle}> 
-                    <Text style={styles.ironName}>{name}</Text>
+                    
                 </View>
                 <View style={styles.viewironmonger}>
                     <View style={styles.viewimage}>
+                        <Text style={styles.ironName}>{name}</Text>
                         <Image
                             resizeMode ="cover"
                             PlaceholderContent={<ActivityIndicator color="#fff"/>}
@@ -47,10 +49,10 @@ function Promotionn({promotion, navigation}){
                             style = {styles.imagePromotion}
                         />
                     </View>
-                    <View>
+                    <View style={styles.viewinfo}>
                         <Text style={styles.irondesc}>
                             {
-                                size(description) > 0 ? `${description.substr(0,60)}...`
+                                size(description) > 0 ? `${description.substr(0,150)}...`
                                 : description
                             }
                         </Text>
@@ -85,9 +87,13 @@ const styles = StyleSheet.create({
         color: "grey"
     },
     irondesc:{
-        paddingTop: 2,
+        marginTop: 25,
+        right: 40,
         color : "grey",
-        width: "75%"
+        textAlign: "justify"
+    },
+    viewinfo:{
+        width: "70%"
     },
     viewdoc:{
         flexDirection: "column",

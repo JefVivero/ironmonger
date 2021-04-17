@@ -156,13 +156,23 @@ export default function AddPromotionForm({toastRef, setLoading, navigation, info
                 )
                             
             }
-            <SelectironMonger
-                isVisibleSelect={isVisibleSelect}
-                setisVisibleSelect={setisVisibleSelect}
-                toastRef={toastRef}
-                ironMongerByUser={ironMongerByUser}
-                setSelectedIronM={setSelectedIronM}
-            />
+            {
+                ironMongerByUser && (
+                    ironMongerByUser.length === 0 ? (
+                        toastRef.current.show("No has creado ferreterias.", 3000)
+                    ):
+                    (
+                        <SelectironMonger
+                            isVisibleSelect={isVisibleSelect}
+                            setisVisibleSelect={setisVisibleSelect}
+                            toastRef={toastRef}
+                            ironMongerByUser={ironMongerByUser}
+                            setSelectedIronM={setSelectedIronM}
+                        />
+                    )
+                )
+            }
+            
         </View>
     )
 
