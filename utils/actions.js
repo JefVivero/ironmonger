@@ -251,6 +251,53 @@ export const getMoreIronmongers = async(limitIronmongers, startIronmonger) => {
     return result     
 }
 
+export const getPromotions = async(limitPromotions) => {
+    const result = { statusResponse: true, error: null, promotions: [], startPromotion: null }
+    try {
+        const response = await db
+        .collection("promotions")
+        .orderBy("createAt", "desc")
+        .limit(limitPromotions)
+        .get()
+        if(response.docs.length > 0){
+            result.startPromotion = response.docs[response.docs.length-1]
+        }
+        response.forEach((doc) =>{
+            const promotion = doc.data()
+            promotion.id = doc.id
+            result.promotions.push(promotion)
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
+
+export const getMorePromotions = async(limitPromotions, startPromotion) => {
+    const result = { statusResponse: true, error: null, promotions: [], startPromotion: null }
+    try {
+        const response = await db
+        .collection("promotions")
+        .orderBy("createAt", "desc")
+        .startAfter(startPromotion.data().createAt)
+        .limit(limitPromotions)
+        .get()
+        if(response.docs.length > 0){
+            result.startPromotion = response.docs[response.docs.length-1]
+        }
+        response.forEach((doc) =>{
+            const promotion = doc.data()
+            promotion.id = doc.id
+            result.promotions.push(promotion)
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
+
 export const getIronMReviews = async(idironM) => {
     const result = { statusResponse: true, error: null, reviews: [] }
     try {
@@ -263,6 +310,46 @@ export const getIronMReviews = async(idironM) => {
             const review = doc.data()
             review.id = doc.id
             result.reviews.push(review)
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
+
+export const getIronMPromotions = async(idironM) => {
+    const result = { statusResponse: true, error: null, promotions: [] }
+    try {
+        const response = await db
+        .collection("ironmongers")
+        .where("idIronMonger", "==", idironM)
+        .get()
+    
+        response.forEach((doc) =>{
+            const promotion = doc.data()
+            promotion.id = doc.id
+            result.promotions.push(promotion)
+        })
+    } catch (error) {
+        result.statusResponse = false
+        result.error = error
+    }
+    return result     
+}
+
+export const getIronMongersByUser = async(idUser) => {
+    const result = { statusResponse: true, error: null, ironMongers: [] }
+    try {
+        const response = await db
+        .collection("ironmongers")
+        .where("createBy", "==", idUser)
+        .get()
+    
+        response.forEach((doc) =>{
+            const ironM = doc.data()
+            ironM.id = doc.id
+            result.ironMongers.push(ironM)
         })
     } catch (error) {
         result.statusResponse = false
