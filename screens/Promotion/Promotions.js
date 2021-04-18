@@ -16,6 +16,7 @@ export default function Promotions({ navigation }) {
     const [ReloadUser, setReloadUser] = useState(false)
     const [Promotions, setPromotions] = useState([])
     const [startPromotions, setStartPromotions] = useState(null)
+    const [loading, setLoading] = useState(false)
     
     const limitIronmongers = 7 
 
@@ -26,15 +27,18 @@ export default function Promotions({ navigation }) {
                     user ? setUser(user) : setUser(null)
                     user ? setLogin(true) : setLogin(false)
                 })
+                setLoading(true)
+                if(userData){
+                    const response = await getDocumentById("TypeUsers", userData.uid)
+                    setInfoUser(response.document) 
+                }
                 
-                const response = await getDocumentById("TypeUsers", userData.uid)
-                setInfoUser(response.document) 
-
                 const responsePromotions = await getPromotions(limitIronmongers)
                 if(responsePromotions.statusResponse){
                     setStartPromotions(responsePromotions.startPromotion)
                     setPromotions(responsePromotions.promotions)
                 }
+                setLoading(false)
             }            
             GetInfo()
             setReloadUser(true)  
@@ -47,22 +51,31 @@ export default function Promotions({ navigation }) {
         />
     }
     
-    return Login ? <UserLogged 
-                        navigation={navigation} 
-                        userData={userData} 
-                        infoUser={infoUser} 
-                        Promotions={Promotions}
-                        startPromotions={startPromotions}
-                        setStartPromotions= {setStartPromotions}
-                        setPromotions={setPromotions}
-                        limitIronmongers={limitIronmongers}
-                    /> : <UserGuest navigation={navigation}/>
+    return (
+        <View style={styles.viewBody}>
+            {
+                Login ? <UserLogged 
+                navigation={navigation} 
+                userData={userData} 
+                infoUser={infoUser} 
+                Promotions={Promotions}
+                startPromotions={startPromotions}
+                setStartPromotions= {setStartPromotions}
+                setPromotions={setPromotions}
+                limitIronmongers={limitIronmongers}
+                /> : <UserGuest navigation={navigation}/>
+            }
+            <Loading isVisible={loading} text="Cargando..."/>
+        </View>
+        
+    )
            
 }
 
 const styles = StyleSheet.create({
     viewBody:{
-        flex: 1
+        flex: 1,
+        marginTop: 5,
     },
     btnContainer:{
         position: "absolute",

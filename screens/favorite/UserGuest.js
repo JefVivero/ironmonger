@@ -1,11 +1,8 @@
 import React from 'react'
 import { StyleSheet, Text, View, ScrollView, Image} from 'react-native'
 import { Button } from 'react-native-elements'
-//import { useNavigation } from '@react-navigation/native'
 
-export default function UserGuest({navigation}) {
-    //const navigation = useNavigation()
-    
+export default function UserGuest({ navigation }) {
     return (
         <ScrollView
         centerContent={true}
@@ -16,9 +13,9 @@ export default function UserGuest({navigation}) {
                 resizeMode= "contain"
                 style={styles.image}
             />
-            <Text style={styles.title}>Conoce las promociones del momento</Text>
+            <Text style={styles.title}>Administra tus ferreterias favoritas</Text>
             <Text style={styles.description}> 
-                Para ver la informacion que tienen los ferreteros para tí debes iniciar sesion en tu cuenta.
+                Para ver la informacion de tus ferreteros favoritos debes iniciar sesion en tu cuenta.
             </Text>
             { 
                 <Button

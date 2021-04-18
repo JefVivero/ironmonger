@@ -20,41 +20,41 @@ export default function IronMongers({ navigation }) {
     const [startIronmonger, setStartIronmonger] = useState(null)
     const [ironmongers, setIronmongers] = useState([])
 
-    const limitIronmongers = 7 
-      
-    const validateTypeUser = async() =>{  
-        setloading(true)  
-        const response = await getDocumentById("TypeUsers", Datauser.uid)  
-        setloading(false)
-        setTypeUser(response.document.TypeUser)
-        
-        if( typeUser == "IronMonger"){
-            navigation.navigate("add-ironmonger")
-        }else if(typeUser == "Iron"){
-            toastRef.current.show("Debes ser usuario IronMonger para agregar Ferreterias.", 3000)
-        }else{
-            toastRef.current.show("Algo ha salido mal, por favor intenta mas tarde.", 3000)
-        } 
-    }    
+    const limitIronmongers = 7             
 
     useFocusEffect(
         useCallback(() => { 
             async function getInfo(){
-                firebase.auth().onAuthStateChanged((userInfo) =>{            
+                firebase.auth().onAuthStateChanged((userInfo) =>{   
+                    userInfo ? setDataUser(userInfo) : setDataUser(null)
                     userInfo ? setUser(true) : setUser(false)
-                    userInfo && setDataUser(userInfo)
                 })
-                setloading(true)  
+                setloading(true) 
                 const response = await getIronmongers(limitIronmongers)
                 if(response.statusResponse){
                     setStartIronmonger(response.startIronmonger)
                     setIronmongers(response.ironmongers)
                 }
-                setloading(false)  
+                if(Datauser){
+                    const response2 = await getDocumentById("TypeUsers", Datauser.uid)
+                    setTypeUser(response2.document.TypeUser)
+                }
+                setloading(false)
             }
             getInfo()
-        }, [])
+        }, [Datauser])
     )
+
+    const validateTypeUser = async() =>{  
+        
+        if( typeUser === "IronMonger"){
+            navigation.navigate("add-ironmonger")
+        }else if(typeUser === "Iron"){
+            toastRef.current.show("Debes ser usuario IronMonger para agregar Ferreterias.", 3000)
+        }else{
+            toastRef.current.show("Algo ha salido mal, por favor intenta mas tarde.", 3000)
+        } 
+    }  
 
     const handleLoadMore = async() =>{
         if(!startIronmonger){
@@ -87,15 +87,14 @@ export default function IronMongers({ navigation }) {
             }
             {  
                 user && (
-                    <Icon
-                        type="material-community"
-                        name="plus"
-                        color="#0e5f6a"
-                        reverse                        
-                        containerStyle={styles.btnContainer}
-                        onPress = {validateTypeUser}
-                    /> 
-
+                        <Icon
+                            type="material-community"
+                            name="plus"
+                            color="#0e5f6a"
+                            reverse                        
+                            containerStyle={styles.btnContainer}
+                            onPress = {validateTypeUser}
+                        /> 
                 )                    
             }
             <Toast ref={toastRef} position="center" opacity={0.9}/>

@@ -34,32 +34,24 @@ function Promotionn({promotion, navigation, infoUser}){
     }
 
     return(
-        <View>
+        <View style={styles.promotion}>
             <TouchableOpacity onPress={goPromotion}>
-                <View style={styles.viewtitle}> 
-                    
+                <Text style={styles.ironName}>{name}</Text>
+                <Image
+                    resizeMode ="cover"
+                    PlaceholderContent={<ActivityIndicator color="#fff"/>}
+                    source = {{ uri: imagePromotion}}
+                    style = {styles.imagePromotion}
+                />
+                <View style={styles.info}>
+                    <Text style={styles.irondesc}>
+                        {   
+                            size(description) > 0 ? `${description.substr(0,150)}...`
+                            : description
+                        }
+                    </Text> 
                 </View>
-                <View style={styles.viewironmonger}>
-                    <View style={styles.viewimage}>
-                        <Text style={styles.ironName}>{name}</Text>
-                        <Image
-                            resizeMode ="cover"
-                            PlaceholderContent={<ActivityIndicator color="#fff"/>}
-                            source = {{ uri: imagePromotion}}
-                            style = {styles.imagePromotion}
-                        />
-                    </View>
-                    <View style={styles.viewinfo}>
-                        <Text style={styles.irondesc}>
-                            {
-                                size(description) > 0 ? `${description.substr(0,150)}...`
-                                : description
-                            }
-                        </Text>
-                    </View>
-                </View>            
             </TouchableOpacity>
-            <Divider styles={styles.divider}/>
         </View>
     )
 }
@@ -73,24 +65,25 @@ const styles = StyleSheet.create({
         marginRight: 15
     },
     imagePromotion:{
-        width: 90,
-        height: 90
+        width: "100%",
+        height: 170
     },
     ironName:{
         fontWeight: "bold",
-        paddingTop: 2,
-        margin: 2,
+        paddingVertical: 2,
+        textAlign: "center",
         color: "#000",
-        fontSize: 15
+        fontSize: 20,
+        width: "100%",
+        backgroundColor: "#fff"
     },
     ironInfo:{
         color: "grey"
     },
     irondesc:{
-        marginTop: 25,
-        right: 40,
         color : "grey",
-        textAlign: "justify"
+        textAlign: "justify",
+        backgroundColor: "#fff"
     },
     viewinfo:{
         width: "70%"
@@ -108,6 +101,19 @@ const styles = StyleSheet.create({
     viewtitle:{
         flexDirection: "column",
         alignItems: "center"
-    }
+    },
+    promotion:{
+        margin: 10
+    },
+    info:{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "space-between",
+        flexDirection: "row",
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        marginTop: -20,
+        backgroundColor: "#fff"
+    },
 
 })

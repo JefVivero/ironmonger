@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { Alert, ScrollView, Dimensions, StyleSheet, Text, View, ActivityIndicator,TouchableOpacity } from 'react-native'
-import { getDocumentById } from '../../utils/actions'
+import { addDocumentWithoutId, DeleteFavorite, getCurrentUser, getDocumentById, getIsFavorite } from '../../utils/actions'
 import { ListItem, Rating, Icon,Button, Avatar } from 'react-native-elements'
 import { useFocusEffect } from '@react-navigation/native'
 import { Modalize } from 'react-native-modalize'
@@ -8,6 +8,7 @@ import { getIronMReviews } from '../../utils/actions'
 import firebase from 'firebase/app'
 import { size } from 'lodash'
 import moment from 'moment/min/moment-with-locales'
+import Toast from 'react-native-easy-toast'
 
 import CarouselImages from '../CarouselImages'
 import Loading from '../Loading'
@@ -20,11 +21,14 @@ const widthScreen = Dimensions.get("window").width
 
 export default function IronMonger({ navigation , route }) {
     const modelizeRef = useRef(null)
+    const toastRef = useRef()
     const { id, name }  = route.params   
     const [ironmonger, setIronmonger] = useState(null)
     const [activeSlide, setActiveSlide] = useState(0)
     const [userLogged, setuserLogged] = useState(false)
     const [reviews, setReviews] = useState([])  
+    const [isFavorite, setIsFavorite] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     navigation.setOptions({title: name})    
 
@@ -53,9 +57,15 @@ export default function IronMonger({ navigation , route }) {
             const response2 = await getIronMReviews(ironmonger.id)
             if(response2.statusResponse){
                 setReviews(response2.reviews) 
-            } 
+            }
+
+            if(userLogged && ironmonger){
+                const response3 = await getIsFavorite(id)
+                response3.statusResponse && setIsFavorite(response3.isFavorite)
+            }
+            
        })()
-    }, [ironmonger])
+    }, [ironmonger, userLogged])
 
     if(!ironmonger){
         return(
@@ -66,10 +76,42 @@ export default function IronMonger({ navigation , route }) {
     const onOpen = () =>{
         modelizeRef.current?.open()
     }
+
+    const removeFavorite = async() =>{
+        setLoading(true)
+        const response = await DeleteFavorite(id)
+        setLoading(false)
+
+        if(response.statusResponse){
+            setIsFavorite(false)
+            toastRef.current.show("Ferreteria eliminada de favoritos.", 3000)
+        }else{
+            toastRef.current.show("No se pudo eliminar la ferreteria de sus favoritos. Por favor intenta mas tarde.", 3000)
+        }        
+    }
+
+    const addFavorite = async() =>{
+        if(!userLogged){
+            toastRef.current.show("Para agregar el restaurante a favoritos debes estar logueado.", 3000)
+            return
+        }
+
+        setLoading(true)
+        const responseAddfavorite = await addDocumentWithoutId("favorites", {
+            idUser: getCurrentUser().uid,
+            idIronMonger: id
+        })
+        setLoading(false)
+        if(responseAddfavorite.statusResponse){
+            setIsFavorite(true)
+            toastRef.current.show("Ferreteria agregada a favoritos.", 3000)
+        }else{
+            toastRef.current.show("No se pudo agregar la ferreteria a sus favoritos. Por favor intenta mas tarde.", 3000)
+        }
+    }
     
     return (
-        <ScrollView style={styles.viewbody}>
-             
+        <ScrollView style={styles.viewbody}>             
             <CarouselImages 
                 images={ironmonger.images} 
                 height={250}
@@ -77,6 +119,16 @@ export default function IronMonger({ navigation , route }) {
                 activeSlide={activeSlide}
                 setActiveSlide={setActiveSlide}
             />
+            <View style={styles.viewFavorite}>
+                <Icon
+                    type="material-community"
+                    name={ isFavorite ? "heart" : "heart-outline"}
+                    onPress= { isFavorite ? removeFavorite : addFavorite}
+                    color= "#0e5f6a"
+                    size={35}
+                    underlayColor = "transparent"
+                />
+             </View>
             <TitleIronmonger
                 name={ironmonger.name}
                 description = {ironmonger.description}
@@ -139,6 +191,8 @@ export default function IronMonger({ navigation , route }) {
                     )
                 }                
             </Modalize>
+            <Toast ref={toastRef} position="center" opacity={0.9}/>
+            <Loading isVisible={loading} text="Por favor espere..."/>
         </ScrollView>
     )
 }
@@ -328,6 +382,15 @@ const styles = StyleSheet.create({
         position: "absolute",
         right: 0,
         bottom: 0
+    },
+    viewFavorite:{
+        position: "absolute",
+        top: 0,
+        right: 0,
+        backgroundColor: "#fff",
+        borderBottomLeftRadius: 100,
+        padding: 5,
+        paddingLeft: 15
     }
 
 })

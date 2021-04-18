@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
     },
     notfoundtext:{
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color:"#0e5f6a"
     },
 })
