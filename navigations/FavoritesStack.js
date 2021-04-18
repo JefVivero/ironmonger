@@ -2,7 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import { StyleSheet, Text, View } from 'react-native'
 
-import Favorites from '../screens/Favorites'
+import Favorites from '../screens/favorite/Favorites'
 
 const Stack = createStackNavigator()
 
